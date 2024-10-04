@@ -3,35 +3,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nombre = $_POST['nombre'];
     $comentario = $_POST['comentario'];
 
-    // Validar los datos (puedes agregar más validaciones si es necesario)
+    //se validan los datos en eso de base de datos
     if (!empty($nombre) && !empty($comentario)) {
-        // Conectar a la base de datos
+        // se conecta a la mabe de satos mysql que esta en xammp y se llama libro_visitas
         $conn = new mysqli('localhost', 'root', '', 'libro_visitas');
 
-        // Verificar conexión
+        //conexion
         if ($conn->connect_error) {
             die("Conexión fallida: " . $conn->connect_error);
         }
 
-        // Insertar comentario en la base de datos
+        // insertar comentario 
         $sql = "INSERT INTO comentarios (nombre, comentario) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("ss", $nombre, $comentario);
 
         if ($stmt->execute()) {
-            // Redirigir al libro de visitas para ver el nuevo comentario
+            // ver el nuevo comentario
             header("Location: index.php");
             exit;
         } else {
-            echo "Error: " . $conn->error;
+            echo "error: " . $conn->error;
         }
 
         $stmt->close();
         $conn->close();
     } else {
-        echo "Por favor, completa todos los campos.";
+        echo "por favor, completa todos los campos.";
     }
 } else {
-    echo "Método no permitido.";
+    echo "metodo no permitido.";
 }
 ?>

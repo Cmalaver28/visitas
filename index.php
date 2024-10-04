@@ -26,10 +26,10 @@
         <h2>Comentarios</h2>
         <div class="comentarios">
             <?php
-            // Conexión a la base de datos
+            // conexion a base de datos
             $conn = new mysqli('localhost', 'root', '', 'libro_visitas');
 
-            // Verificar conexión
+            // verficacion
             if ($conn->connect_error) {
                 die("Conexión fallida: " . $conn->connect_error);
             }
@@ -39,7 +39,7 @@
             $result = $conn->query($sql);
 
             if ($result->num_rows > 0) {
-                // Mostrar comentarios
+                // esto sirve para que los comentarios se muestren en la parte de abajo
                 while ($row = $result->fetch_assoc()) {
                     echo "<div class='comentario'>";
                     echo "<p><strong>" . htmlspecialchars($row['nombre']) . "</strong> (" . $row['fecha'] . ")</p>";
